@@ -1,5 +1,5 @@
 {
-  "_comment": "Sources for the Prompt Studio backfill. Paths are local to the Prompt Studio build machine. Third-party resources that sit next to ours (cfx_chuz_*, darkvanar_*, cfx-sf-impound, donmario_*, igro_*, npo_*) are deliberately excluded by the include filters. The [PT_Church&Prison] bundles are left out: they carry i45pt_* resources of unclear provenance.",
+  "_comment": "Sources for the Prompt Studio backfill. Paths are local to the Prompt Studio build machine. Third-party resources that sit next to ours (cfx_chuz_*, darkvanar_*, cfx-sf-impound, donmario_*, igro_*, npo_*) are deliberately excluded by the include filters. The [PT_Church&Prison] bundles are left out: they carry i45pt_* resources of unclear provenance. Mapdata (customer builds on GitHub and the local cfx_prompt_*_mapdata folders) is deliberately NOT listed: it is a merged product of its own.",
   "groups": {
     "sandy-maps": {
       "zips": [
@@ -18,22 +18,7 @@
       ],
       "exclude": []
     },
-    "sandy-mapdata": {
-      "git_bare": [
-        "D:/allowlist_clones/smd.git"
-      ],
-      "dirs": [
-        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]"
-      ],
-      "include": [
-        "cfx_prompt_sandy_mapdata*"
-      ],
-      "exclude": []
-    },
     "paleto": {
-      "git_bare": [
-        "D:/allowlist_clones/pmd.git"
-      ],
       "dirs": [
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]"
       ],

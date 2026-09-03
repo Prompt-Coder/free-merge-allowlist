@@ -23,6 +23,17 @@ just another folder containing the union of both catalogs, e.g.
 
 ## Rules
 
+- **Only vanilla-named files are listed.** The merger merges duplicates of
+  base-game files; a map's custom-named props never go through it. So the
+  hashes cover the files whose name exists in the base game
+  (`cdn.vertex-hub.com/gta5-resource-list.json`, the same inventory the app
+  uses) plus **every lodlights ymap of any name**, because the LOD-light
+  manager processes all of them. Both tools apply this filter by default.
+- **Mapdata is not listed** (`cfx_prompt_*_mapdata`, the per-customer builds on
+  GitHub). It is a merged product of its own with thousands of per-customer
+  variants; free handling for it is a separate, name-based concern. The tools
+  skip any path segment matching `*mapdata*` by default (`--skip`).
+
 - **Append-only. Never delete hashes.** Map updates *add* the new file hashes;
   customers on old versions keep matching forever. The API tolerates stale
   copies precisely because the list only grows.

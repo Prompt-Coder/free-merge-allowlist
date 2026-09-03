@@ -22,7 +22,6 @@ ROOTS = [
     "C:/Scripts",
     "C:/temp/mlos",
     "C:/temp/brp",
-    "D:/Sandymapdata",
     "D:/!IMPORTANT",
 ]
 BUNDLE_ROOTS = [
@@ -35,6 +34,8 @@ BUNDLE_ROOTS = [
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".remember", ".claude", "obj", "bin", "cache"}
 MAX_DEPTH = 7
 NEEDLE = "prompt_"
+# Mapdata is a merged product of its own and is not listed.
+SKIP_NEEDLE = "mapdata"
 
 
 def discover():
@@ -49,7 +50,7 @@ def discover():
             subdirs[:] = [d for d in subdirs if d.lower() not in SKIP_DIRS]
             matched_here = []
             for d in subdirs:
-                if NEEDLE in d.lower():
+                if NEEDLE in d.lower() and SKIP_NEEDLE not in d.lower():
                     matched_here.append(d)
                     dirs.append(os.path.join(current, d).replace("\\", "/"))
             # do not descend into matched directories (their walk is the backfill's job)
@@ -57,7 +58,7 @@ def discover():
             if depth >= MAX_DEPTH:
                 subdirs[:] = []
             for f in files:
-                if f.lower().endswith(".zip") and NEEDLE in f.lower():
+                if f.lower().endswith(".zip") and NEEDLE in f.lower() and SKIP_NEEDLE not in f.lower():
                     zips.append(os.path.join(current, f).replace("\\", "/"))
     for root in BUNDLE_ROOTS:
         if not os.path.isdir(root):

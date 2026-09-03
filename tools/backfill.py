@@ -27,10 +27,46 @@ import zipfile
 MERGE_EXTENSIONS = {".ymap", ".ybn", ".ydr", ".ydd", ".ytyp"}
 CHUNK_LINES = 50000
 INDEX_HEADER = "# free-merge allowlist index - one hash file per line"
+# The base-game file inventory the Vertex Hub app itself uses (basenames).
+DEFAULT_NAMES_URL = "https://cdn.vertex-hub.com/gta5-resource-list.json"
+
+# Name filter, set by main(): only files whose basename is a vanilla game file
+# (the merger only ever merges those) plus the always-include globs
+# (lodlights ymaps of any name - the lodlights manager takes them all).
+VANILLA_NAMES = None
+ALWAYS_INCLUDE = []
+# Any path segment matching one of these globs is skipped entirely. Mapdata is a
+# merged product of its own and is deliberately not listed here.
+SKIP_PATH_GLOBS = []
 
 
 def is_merge_file(name):
-    return os.path.splitext(name)[1].lower() in MERGE_EXTENSIONS
+    if os.path.splitext(name)[1].lower() not in MERGE_EXTENSIONS:
+        return False
+    segments = name.replace("\\", "/").lower().split("/")
+    if any(fnmatch.fnmatch(segment, pattern.lower()) for segment in segments for pattern in SKIP_PATH_GLOBS):
+        return False
+    base = segments[-1]
+    if any(fnmatch.fnmatch(base, pattern.lower()) for pattern in ALWAYS_INCLUDE):
+        return True
+    return VANILLA_NAMES is None or base in VANILLA_NAMES
+
+
+def load_names(source):
+    """A JSON list (or one name per line) of basenames, from a path or URL."""
+    import urllib.request
+    if source.startswith("http://") or source.startswith("https://"):
+        # The CDN rejects the default python user agent with 403.
+        request = urllib.request.Request(source, headers={"User-Agent": "Mozilla/5.0 free-merge-allowlist/backfill"})
+        with urllib.request.urlopen(request, timeout=60) as response:
+            raw = response.read().decode("utf-8")
+    else:
+        raw = open(source, encoding="utf-8").read()
+    try:
+        names = json.loads(raw)
+    except json.JSONDecodeError:
+        names = raw.splitlines()
+    return {str(n).strip().lower() for n in names if str(n).strip()}
 
 
 def sha256_stream(stream):
@@ -72,7 +108,7 @@ def hash_dir(path, out):
     n = 0
     for root, _dirs, files in os.walk(path):
         for name in files:
-            if not is_merge_file(name):
+            if not is_merge_file(os.path.join(root, name)):
                 continue
             with open(os.path.join(root, name), "rb") as stream:
                 out.add(sha256_stream(stream))
@@ -203,7 +239,23 @@ def main():
     parser.add_argument("--publisher", required=True)
     parser.add_argument("--config", required=True)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--names", default=DEFAULT_NAMES_URL,
+                        help="vanilla basename list (path or URL); 'none' disables the filter")
+    parser.add_argument("--always", action="append", default=["*lodlights*.ymap"],
+                        help="basename glob always included regardless of the vanilla list (repeatable)")
+    parser.add_argument("--skip", action="append", default=["*mapdata*"],
+                        help="path-segment glob to skip entirely (repeatable)")
     args = parser.parse_args()
+
+    global VANILLA_NAMES, ALWAYS_INCLUDE, SKIP_PATH_GLOBS
+    ALWAYS_INCLUDE = args.always
+    SKIP_PATH_GLOBS = args.skip
+    print(f"skipping path segments: {SKIP_PATH_GLOBS}")
+    if args.names.lower() != "none":
+        VANILLA_NAMES = load_names(args.names)
+        print(f"vanilla name filter: {len(VANILLA_NAMES)} names from {args.names}; always: {ALWAYS_INCLUDE}")
+    else:
+        print("vanilla name filter: OFF")
 
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     with open(args.config, encoding="utf-8") as handle:

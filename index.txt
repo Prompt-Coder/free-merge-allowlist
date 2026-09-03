@@ -1,15 +1,5 @@
 # free-merge allowlist index - one hash file per line
 publishers/prompt/sandy-maps.txt
-publishers/prompt/sandy-mapdata-01.txt
-publishers/prompt/sandy-mapdata-02.txt
-publishers/prompt/sandy-mapdata-03.txt
-publishers/prompt/sandy-mapdata-04.txt
-publishers/prompt/sandy-mapdata-05.txt
-publishers/prompt/sandy-mapdata-06.txt
-publishers/prompt/sandy-mapdata-07.txt
-publishers/prompt/sandy-mapdata-08.txt
-publishers/prompt/sandy-mapdata-09.txt
-publishers/prompt/sandy-mapdata-10.txt
 publishers/prompt/paleto.txt
 publishers/prompt/mrpd.txt
 publishers/prompt/other-maps.txt
