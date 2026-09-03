@@ -13,3 +13,4 @@ publishers/prompt/sandy-mapdata-10.txt
 publishers/prompt/paleto.txt
 publishers/prompt/mrpd.txt
 publishers/prompt/other-maps.txt
+publishers/prompt/prompt-catalog.txt

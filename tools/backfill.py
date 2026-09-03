@@ -40,11 +40,27 @@ def sha256_stream(stream):
     return digest.hexdigest()
 
 
-def hash_zip(path, out):
+def entry_allowed(entry_name, entry_include):
+    """A zip entry qualifies when any folder segment of its path matches one
+    of the entry_include globs (e.g. "*prompt_*" picks our resources out of a
+    bundle that also carries third-party ones). No patterns = everything."""
+    if not entry_include:
+        return True
+    segments = entry_name.replace("\\", "/").lower().split("/")[:-1]
+    return any(fnmatch.fnmatch(segment, pattern.lower()) for segment in segments for pattern in entry_include)
+
+
+def hash_zip(path, out, entry_include=None):
     n = 0
+    # A zip that is itself named like a resource we want (prompt_x.zip) is
+    # taken whole; the entry filter is for bundles that mix publishers.
+    if entry_include and matches(os.path.basename(path), ["*" + pattern + "*" for pattern in entry_include], []):
+        entry_include = None
     with zipfile.ZipFile(path) as archive:
         for info in archive.infolist():
             if info.is_dir() or not is_merge_file(info.filename):
+                continue
+            if not entry_allowed(info.filename, entry_include):
                 continue
             with archive.open(info) as stream:
                 out.add(sha256_stream(stream))
@@ -205,8 +221,9 @@ def main():
         collected = set()
         files = 0
         print(f"[{group}]")
+        entry_include = spec.get("entry_include", [])
         for source in expand(spec.get("zips", []), include, exclude, want_zip=True):
-            count = hash_zip(source, collected)
+            count = hash_zip(source, collected, entry_include)
             files += count
             print(f"  zip {count:5d}  {source}")
         for source in expand(spec.get("dirs", []), include, exclude, want_zip=False):

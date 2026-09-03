@@ -70,6 +70,17 @@ blob reachable from any branch is a file a customer may hold):
 python tools/backfill.py --publisher prompt --config tools/backfill-prompt.json
 ```
 
+`tools/discover-prompt.py` writes `tools/backfill-prompt-all.json`: every folder
+and zip whose name contains `prompt_` under the local server, dev and customer
+pack roots, plus the group bundle zips. For bundles the `entry_include`
+filter keeps only entries whose path contains `prompt_`, so third-party
+resources packed next to ours never get listed.
+
+```
+python tools/discover-prompt.py --out tools/backfill-prompt-all.json
+python tools/backfill.py --publisher prompt --config tools/backfill-prompt-all.json
+```
+
 Same rules as `publish.ps1`: append-only, publisher-wide dedup, `index.txt`
 updated. Groups are written as `publishers/prompt/<group>.txt`, split into
 `<group>-NN.txt` chunks of 50k hashes so each stays a small single HTTP fetch
