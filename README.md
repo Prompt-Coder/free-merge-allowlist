@@ -55,5 +55,23 @@ diff, commit, push — done. Running it again with the same source is a no-op.
 The merger API reads the raw files over HTTP (no git client):
 `<base-url>/index.txt`, then each listed file. Configure the base URL in the
 service's `settings` table, key `merger/allowlist-url`, e.g.
-`https://gitlab.com/vertex-hub/free-merge-allowlist/-/raw/main`. Refreshes
+`https://raw.githubusercontent.com/Prompt-Coder/free-merge-allowlist/main`
+(public read; the GitLab copy under vertex-hub is a private mirror). Refreshes
 every 5 minutes; see `allowlist.service.ts` in `vertex-hub-merger-api`.
+
+## Bulk backfill (Prompt Studio)
+
+`tools/backfill.py` hashes a whole catalog in one run - release zips, resource
+folders and the customer mapdata repositories (`Prompt-Coder/Sandy-Map-Data`,
+`Prompt-Coder/Paleto-Map-Data`: every branch is one customer build, so every
+blob reachable from any branch is a file a customer may hold):
+
+```
+python tools/backfill.py --publisher prompt --config tools/backfill-prompt.json
+```
+
+Same rules as `publish.ps1`: append-only, publisher-wide dedup, `index.txt`
+updated. Groups are written as `publishers/prompt/<group>.txt`, split into
+`<group>-NN.txt` chunks of 50k hashes so each stays a small single HTTP fetch
+for the API. Re-run after every release and whenever new mapdata branches were
+generated; re-running with unchanged sources is a no-op.

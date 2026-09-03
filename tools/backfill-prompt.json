@@ -1,0 +1,84 @@
+{
+  "_comment": "Sources for the Prompt Studio backfill. Paths are local to the Prompt Studio build machine. Third-party resources that sit next to ours (cfx_chuz_*, darkvanar_*, cfx-sf-impound, donmario_*, igro_*, npo_*) are deliberately excluded by the include filters. The [PT_Church&Prison] bundles are left out: they carry i45pt_* resources of unclear provenance.",
+  "groups": {
+    "sandy-maps": {
+      "zips": [
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[promptsandy]",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]/[Sandy]",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]/[Sandy].zip"
+      ],
+      "dirs": [
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[promptsandy]",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]/[Sandy]",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]"
+      ],
+      "include": [
+        "prompt_sandy_*",
+        "sandy-no-interior.zip"
+      ],
+      "exclude": []
+    },
+    "sandy-mapdata": {
+      "git_bare": [
+        "D:/allowlist_clones/smd.git"
+      ],
+      "dirs": [
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]"
+      ],
+      "include": [
+        "cfx_prompt_sandy_mapdata*"
+      ],
+      "exclude": []
+    },
+    "paleto": {
+      "git_bare": [
+        "D:/allowlist_clones/pmd.git"
+      ],
+      "dirs": [
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]"
+      ],
+      "include": [
+        "prompt_paleto_*"
+      ],
+      "exclude": []
+    },
+    "mrpd": {
+      "zips": [
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[MRPD]",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[MRPD]/[MRPD].zip",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[MRPD]/[MRPD] - Copy.zip",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]/prompt_mrpd.zip",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]/prompt_sahp_new.zip"
+      ],
+      "dirs": [
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[MRPD]"
+      ],
+      "include": [
+        "prompt_*"
+      ],
+      "exclude": []
+    },
+    "other-maps": {
+      "zips": [
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]/[Small]",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]/[prep].zip",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]/[prompt_chinese_casino_scripts].zip",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]/ovr_casino_prompt.zip"
+      ],
+      "dirs": [
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/[prep]/[Small]"
+      ],
+      "include": [
+        "prompt_*",
+        "ovr_casino_prompt*"
+      ],
+      "exclude": [
+        "prompt_sandy_*",
+        "prompt_paleto_*",
+        "prompt_mrpd*"
+      ]
+    }
+  }
+}
