@@ -15,13 +15,15 @@ import argparse
 import json
 import os
 
+# Our own build-machine locations only. Customer packs (their downloaded
+# copies under C:/temp) are deliberately not scanned: a copy sitting in a
+# customer's pack may carry their edits, and the list must bless our releases,
+# not someone's modified copy of one.
 ROOTS = [
     "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources",
     "C:/txData/QBCore_77D2E4.base/resources",
     "C:/FXServer_Enhanced",
     "C:/Scripts",
-    "C:/temp/mlos",
-    "C:/temp/brp",
     "D:/!IMPORTANT",
 ]
 BUNDLE_ROOTS = [
