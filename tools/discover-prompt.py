@@ -36,10 +36,11 @@ BUNDLE_ROOTS = [
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".remember", ".claude", "obj", "bin", "cache"}
 MAX_DEPTH = 7
 # Name fragments that mark a resource as ours. "prompt_" covers the Prompt
-# Studio catalog; "chuz_" the chuz maps; the Rockford PD entry is the
+# Studio catalog; "chuz_" the chuz maps; "fluorine4305" the FLOURIONE maps
+# (that is the prefix their files carry); the Rockford PD entry is the
 # fd-compatible edition only (the plain rockford_police_department resource is
 # deliberately not listed).
-NEEDLES = ["prompt_", "chuz_", "rockford_police_department(fd_compatible)"]
+NEEDLES = ["prompt_", "chuz_", "fluorine4305", "rockford_police_department(fd_compatible)"]
 # Mapdata is a merged product of its own and is not listed.
 SKIP_NEEDLE = "mapdata"
 
@@ -63,6 +64,7 @@ EXTRA_RESOURCES = [
     "cfx_vfd_ext_old",
     "cfx_vfd_dfgdfg",
     "cfx_vfd_sdf",
+    "FLOURIONE",
 ]
 EXTRA_LOWER = {name.lower() for name in EXTRA_RESOURCES}
 

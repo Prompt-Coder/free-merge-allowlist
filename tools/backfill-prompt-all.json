@@ -23,6 +23,7 @@
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/!UPDATE/rockford_police_department(fd_compatible)",
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/.stversions/[TRAIN]/[train_script]/prompt_train_script",
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/.stversions/[prep]/prompt_logistics_corp",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/FLOURIONE",
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/LSFD",
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/Los_Santos_City_Hall",
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/Prompt-ATLAS-MAP",
@@ -237,6 +238,7 @@
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/depricated_cfx_prompt_custom_Truck_Repairs",
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/depricated_prompt_vfd_4bays",
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/depricated_prompt_vfd_8bays",
+        "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/fluorine4305_huntingstore5M_old",
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/halloween_stuff",
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/hos_prompt_sandy_houses_part1 - Copy",
         "C:/5m_Server/txData/CFXDefault_F6E3BF.base/resources/map-prompt",
@@ -1464,6 +1466,7 @@
       "entry_include": [
         "*prompt_*",
         "*chuz_*",
+        "*fluorine4305*",
         "*rockford_police_department(fd_compatible)*"
       ]
     }
