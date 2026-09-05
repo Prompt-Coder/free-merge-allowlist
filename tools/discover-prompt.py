@@ -38,6 +38,15 @@ NEEDLE = "prompt_"
 SKIP_NEEDLE = "mapdata"
 
 
+def is_merged_pack(name):
+    """Merged compatibility products, never listed: mapdata by name, and the
+    per-customer combination packs, which are named after the maps they were
+    built for ("GN-Clinic+Burgershott+...+Prompt_Sheriff"). Their content is
+    merged output, not a release of ours."""
+    lower = name.lower()
+    return SKIP_NEEDLE in lower or "+" in name
+
+
 def discover():
     dirs, zips = [], []
     for root in ROOTS:
@@ -50,7 +59,7 @@ def discover():
             subdirs[:] = [d for d in subdirs if d.lower() not in SKIP_DIRS]
             matched_here = []
             for d in subdirs:
-                if NEEDLE in d.lower() and SKIP_NEEDLE not in d.lower():
+                if NEEDLE in d.lower() and not is_merged_pack(d):
                     matched_here.append(d)
                     dirs.append(os.path.join(current, d).replace("\\", "/"))
             # do not descend into matched directories (their walk is the backfill's job)
@@ -58,7 +67,7 @@ def discover():
             if depth >= MAX_DEPTH:
                 subdirs[:] = []
             for f in files:
-                if f.lower().endswith(".zip") and NEEDLE in f.lower() and SKIP_NEEDLE not in f.lower():
+                if f.lower().endswith(".zip") and NEEDLE in f.lower() and not is_merged_pack(f):
                     zips.append(os.path.join(current, f).replace("\\", "/"))
     for root in BUNDLE_ROOTS:
         if not os.path.isdir(root):

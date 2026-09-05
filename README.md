@@ -29,6 +29,9 @@ just another folder containing the union of both catalogs, e.g.
   (`cdn.vertex-hub.com/gta5-resource-list.json`, the same inventory the app
   uses) plus **every lodlights ymap of any name**, because the LOD-light
   manager processes all of them. Both tools apply this filter by default.
+- **Merged products are not listed**: mapdata, and the per-customer combination
+  packs named after the maps they were built for (`A+B+C`). What they contain is
+  merged output, not one of our releases.
 - **Mapdata is not listed** (`cfx_prompt_*_mapdata`, the per-customer builds on
   GitHub). It is a merged product of its own with thousands of per-customer
   variants; free handling for it is a separate, name-based concern. The tools
