@@ -85,10 +85,13 @@ python tools/backfill.py --publisher prompt --config tools/backfill-prompt.json
 ```
 
 `tools/discover-prompt.py` writes `tools/backfill-prompt-all.json`: every folder
-and zip whose name contains `prompt_` under the local server, dev and customer
-pack roots, plus the group bundle zips. For bundles the `entry_include`
-filter keeps only entries whose path contains `prompt_`, so third-party
-resources packed next to ours never get listed.
+and zip whose name carries one of the discovery needles under the local build
+roots, plus the group bundle zips. The needles are `prompt_`, `chuz_` and
+`rockford_police_department(fd_compatible)` — add a name there when a new
+product does not follow the `prompt_` convention. For bundles the
+`entry_include` filter keeps only entries matching those same needles, so
+third-party resources packed next to ours never get listed. The plain
+`rockford_police_department` resource is deliberately not a needle.
 
 ```
 python tools/discover-prompt.py --out tools/backfill-prompt-all.json
