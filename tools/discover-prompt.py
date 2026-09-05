@@ -44,8 +44,33 @@ NEEDLES = ["prompt_", "chuz_", "rockford_police_department(fd_compatible)"]
 SKIP_NEEDLE = "mapdata"
 
 
+# Legacy products whose folder name predates the prompt_ convention. Each was
+# confirmed by content: its custom-named files carry our prefixes, or it is a
+# named edition of one of our maps. Names are matched exactly (folders), and a
+# zip of the same name is taken too.
+EXTRA_RESOURCES = [
+    "rockford_police_department",
+    "LSFD",
+    "Los_Santos_City_Hall",
+    "city_hall_lawn_christmas",
+    "city_hall_lawn_christmas_emptied",
+    "cfx_Christmas_Fair_Sandy_Shores",
+    "halloween_stuff",
+    "noose_prompt",
+    "prison_tower",
+    "Prompt-ATLAS-MAP",
+    "map-prompt",
+    "cfx_vfd_ext_old",
+    "cfx_vfd_dfgdfg",
+    "cfx_vfd_sdf",
+]
+EXTRA_LOWER = {name.lower() for name in EXTRA_RESOURCES}
+
+
 def is_ours(name):
     lower = name.lower()
+    if lower in EXTRA_LOWER or os.path.splitext(lower)[0] in EXTRA_LOWER:
+        return True
     return any(needle in lower for needle in NEEDLES)
 
 

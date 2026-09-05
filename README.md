@@ -90,8 +90,14 @@ roots, plus the group bundle zips. The needles are `prompt_`, `chuz_` and
 `rockford_police_department(fd_compatible)` — add a name there when a new
 product does not follow the `prompt_` convention. For bundles the
 `entry_include` filter keeps only entries matching those same needles, so
-third-party resources packed next to ours never get listed. The plain
-`rockford_police_department` resource is deliberately not a needle.
+third-party resources packed next to ours never get listed.
+
+Legacy products whose folder name predates the `prompt_` convention are named
+one by one in `EXTRA_RESOURCES` (Rockford PD, LSFD, Los Santos City Hall, the
+christmas/halloween sets, the vfd family, …). Each was confirmed by content —
+its custom-named files carry our prefixes — rather than by its folder name.
+Add a line there when an old product surfaces; never add a resource whose
+manifest names another author.
 
 ```
 python tools/discover-prompt.py --out tools/backfill-prompt-all.json
