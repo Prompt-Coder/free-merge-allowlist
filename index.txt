@@ -96,3 +96,4 @@ publishers/prompt/promptrace-ipl.txt
 publishers/prompt/rockford-police-department-fd-compatible.txt
 publishers/prompt/rockford-police-department.txt
 publishers/prompt/sandy-maps.txt
+publishers/prompt/burger_shot.txt
